@@ -3,33 +3,54 @@
   var chatbotDiv = document.createElement("div");
   chatbotDiv.className = "chatbot-div";
 
+
+  // Create the pop up message element
+  var popupMessageDivElement = document.createElement('div');
+  popupMessageDivElement.className = 'pop-up-message';
+  popupMessageDivElement.id = 'popupMessageContainer';
+  var firstSpan = document.createElement('span');
+  firstSpan.textContent = 'Hi, Need any Help?';
+
+  var secondSpan = document.createElement('span');
+  secondSpan.id = 'closeButtonForPopupMessage';
+  secondSpan.className = 'pop-up-message-close-icon';
+  var svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svgElement.setAttribute('style', 'height: 18px; width: 18px;');
+  svgElement.setAttribute('viewBox', '0 0 24 24');
+  svgElement.setAttribute('height', 18)
+  svgElement.setAttribute('width', 18)
+
+  var pathElement = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  pathElement.setAttribute('d', 'M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z');
+  pathElement.setAttribute('fill', '#5e6165');
+  svgElement.appendChild(pathElement);
+  secondSpan.appendChild(svgElement);
+  popupMessageDivElement.appendChild(firstSpan);
+  popupMessageDivElement.appendChild(secondSpan);
+  chatbotDiv.appendChild(popupMessageDivElement);
+
   //create chatbot button element
   var bubbleButtonDiv = document.createElement("div");
   bubbleButtonDiv.className = "bubble-button";
   bubbleButtonDiv.id = "chatbots-pop-btn";
 
-  // var iconElement = document.createElement("i");
-  // iconElement.className = "fa fa-solid fa-comments";
-  // iconElement.style.color = "white";
-  // iconElement.style.fontSize = "1.5rem";
-
   var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 
-// Set the SVG attributes
-svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-svg.setAttribute("viewBox", "0 0 24 24");
-svg.setAttribute("fill", "#fff");
-svg.setAttribute("height",30)
-svg.setAttribute("width",30)
+  // Set the SVG attributes
+  svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("fill", "#fff");
+  svg.setAttribute("height", 30)
+  svg.setAttribute("width", 30)
 
-// Create the path element
-var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  // Create the path element
+  var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
 
-// Set the path attributes
-path.setAttribute("d", "M10,18 L6,22 L6,18 L10,18 Z M17,6 C19.7614237,6 22,8.23857625 22,11 C22,13.7614237 19.7614237,16 17,16 L17,16 L7,16 C4.23857625,16 2,13.7614237 2,11 C2,8.23857625 4.23857625,6 7,6 L7,6 Z");
+  // Set the path attributes
+  path.setAttribute("d", "M10,18 L6,22 L6,18 L10,18 Z M17,6 C19.7614237,6 22,8.23857625 22,11 C22,13.7614237 19.7614237,16 17,16 L17,16 L7,16 C4.23857625,16 2,13.7614237 2,11 C2,8.23857625 4.23857625,6 7,6 L7,6 Z");
 
-// Append the path to the SVG element
-svg.appendChild(path);
+  // Append the path to the SVG element
+  svg.appendChild(path);
 
 
   bubbleButtonDiv.appendChild(svg);
@@ -95,7 +116,7 @@ svg.appendChild(path);
 
   var botNameSpan = document.createElement("span");
   botNameSpan.style.color = "rgb(24, 25, 25)";
-  botNameSpan.style.fontSize= "14px";
+  botNameSpan.style.fontSize = "14px";
   botNameSpan.textContent = "ChatBot";
   var botMessageChatDiv = document.createElement("div");
   botMessageChatDiv.className = "bot-message-chat";
@@ -249,6 +270,17 @@ svg.appendChild(path);
   chatbotDiv.appendChild(chatContainerBrandDiv);
   document.body.appendChild(chatbotDiv);
 
+  // pop-up-message open-close button  handler 
+
+  const popupMessageContainer = document.querySelector("#popupMessageContainer");
+  if (localStorage.getItem("popupMessageContainer")) { popupMessageContainer.style.display = "none"; }
+  const closeButtonForPopupMessage = document.querySelector("#closeButtonForPopupMessage");
+  closeButtonForPopupMessage.addEventListener("click", function () {
+    popupMessageContainer.style.display = "none";
+    localStorage.setItem("popupMessageContainer", true);
+  })
+
+  //  chatbot screen open-close button  handler 
 
   const chatbotsPopButton = document.getElementById('chatbots-pop-btn');
   const chatbotsScreen = document.getElementById('chatbots-screen');
@@ -256,15 +288,19 @@ svg.appendChild(path);
   chatbotsPopButton.addEventListener('click', function () {
     chatbotsScreen.style.display = "flex";
     chatbotsPopButton.style.display = "none";
+    popupMessageContainer.style.display = "none";
   })
   closeChatbtn.addEventListener('click', function () {
     chatbotsScreen.style.display = "none";
     chatbotsPopButton.style.display = "block";
   })
+
+  // form submit handler for new user 
+
   var form = document.querySelector(".bot-form");
   var botFormDiv = document.querySelector(".bot-form-div");
   form.addEventListener("submit", function (event) {
-    event.preventDefault(); 
+    event.preventDefault();
 
     var nameInput = document.querySelector("#bot-form-input-name");
     var emailInput = document.querySelector("#bot-form-input-email");
@@ -298,4 +334,5 @@ svg.appendChild(path);
       botIntroMessage.style.display = "none";
     }
   });
+
 
