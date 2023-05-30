@@ -1,4 +1,4 @@
-
+<script>
   // main root element
   var chatbotDiv = document.createElement("div");
   chatbotDiv.className = "chatbot-div";
@@ -95,6 +95,7 @@ svg.appendChild(path);
 
   var botNameSpan = document.createElement("span");
   botNameSpan.style.color = "rgb(24, 25, 25)";
+  botNameSpan.style.fontSize= "14px";
   botNameSpan.textContent = "ChatBot";
   var botMessageChatDiv = document.createElement("div");
   botMessageChatDiv.className = "bot-message-chat";
@@ -183,7 +184,7 @@ svg.appendChild(path);
   userMessageChatWrapperDiv.className = "user-message-chat-wrapper";
 
   var userNameDiv = document.createElement("div");
-  userNameDiv.innerHTML = '<span style="color: rgb(24, 25, 25)">you</span>';
+  userNameDiv.innerHTML = '<span style="color: rgb(24, 25, 25) ; font-size: 14px">you</span>';
 
   var userMessageDiv = document.createElement("div");
   userMessageDiv.className = "user-message-chat";
@@ -248,7 +249,8 @@ svg.appendChild(path);
   chatbotDiv.appendChild(chatContainerBrandDiv);
   document.body.appendChild(chatbotDiv);
 
-
+</script>
+<script>
   const chatbotsPopButton = document.getElementById('chatbots-pop-btn');
   const chatbotsScreen = document.getElementById('chatbots-screen');
   const closeChatbtn = document.getElementById('close-chat-icon');
@@ -297,3 +299,4 @@ svg.appendChild(path);
       botIntroMessage.style.display = "none";
     }
   });
+</script>
